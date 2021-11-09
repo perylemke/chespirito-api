@@ -8,6 +8,9 @@ authors = ["Pery Lemke <pery.lemke@gmail.com>"]
 python = "^3.8"
 fastapi = "^0.70.0"
 uvicorn = "^0.15.0"
+pymongo = "^3.12.1"
+pydantic = "^1.8.2"
+requests = "^2.26.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
