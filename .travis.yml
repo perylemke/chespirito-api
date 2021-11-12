@@ -6,8 +6,6 @@ os:
   - linux
 python:
   - "3.8"
-env:
- - DB_URI=${DB_URI}
 
 before_install:
   - sudo apt-get update
