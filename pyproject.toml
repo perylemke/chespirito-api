@@ -8,9 +8,16 @@ authors = ["Pery Lemke <pery.lemke@gmail.com>"]
 python = "^3.8"
 fastapi = "^0.70.0"
 uvicorn = "^0.15.0"
-pymongo = "^3.12.1"
 pydantic = "^1.8.2"
 requests = "^2.26.0"
+motor = "2.2.0"
+pymongo = "^3.12.1"
+dnspython = "^2.1.0"
+python-decouple = "^3.5"
+pytest-asyncio = "^0.16.0"
+httpx = "^0.20.0"
+trio = "^0.19.0"
+autopep8 = "^1.6.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
