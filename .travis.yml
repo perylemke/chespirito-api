@@ -1,6 +1,6 @@
 sudo: enabled
 services: docker
-dist: trusty
+dist: bionic
 language: python
 os:
   - linux
