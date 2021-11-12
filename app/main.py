@@ -1,34 +1,41 @@
 from fastapi import FastAPI
 
+from .models import Actor, Episode
+from typing import List
+
+import motor.motor_asyncio
+from decouple import config
+
+# Setup DBs
+MONGO_URI = config('DB_URI', default='localhost', cast=str)
+client = motor.motor_asyncio.AsyncIOMotorClient(MONGO_URI)
+db_general = client.generaldb
+db_chaves = client.chavesdb
+
+# Setup FastAPI
 app = FastAPI()
 
 
-@app.get("/api/v1/atores/")
-def actors():
+@app.get("/api/v1/atores/", response_model=List[Actor])
+async def get_actors():
     """
     View para consultar os atores. Retorna um dict com todos os atores.
     """
-    return {"Status": "Work in Progress"}
+    actors_res = await db_general.actors.find().to_list(1000)
+    return actors_res
 
 
-@app.get("/api/v1/atrizes/")
-def actresses():
+@app.get("/api/v1/atrizes/", response_model=List[Actor])
+async def get_actresses():
     """
     View para consultar as atrizes. Retorna um dict com todos as atrizes.
     """
-    return {"Status": "Work in Progress"}
-
-
-@app.get("/api/v1/casas/")
-def houses():
-    """
-    View para consultar as casas. Retorna um dict com todos as casas.
-    """
-    return {"Status": "Work in Progress"}
+    actress_res = await db_general.actresses.find().to_list(1000)
+    return actress_res
 
 
 @app.get("/api/v1/dubladoras/")
-def voice_actresses():
+async def get_voice_actresses():
     """
     View para consultar as dubladoras. Retorna um dict com todos as dubladoras.
     """
@@ -36,48 +43,32 @@ def voice_actresses():
 
 
 @app.get("/api/v1/dubladores/")
-def voice_actors():
+async def get_voice_actors():
     """
     View para consultar os dubladores. Retorna um dict com todos os dubladores.
     """
     return {"Status": "Work in Progress"}
 
 
-@app.get("/api/v1/episodios/")
-def episodes():
+@app.get("/api/v1/episodios/", response_model=List[Episode])
+async def get_episodes():
     """
     View para consultar os episódios. Retorna um dict com todos os episódios.
     """
-    return {"Status": "Work in Progress"}
-
-
-@app.get("/api/v1/estudios/")
-def voice_studios():
-    """
-    View para consultar os estúdios de dublagem.
-    Retorna um dict com todos os estúdios de dublagem.
-    """
-    return {"Status": "Work in Progress"}
-
-
-@app.get("/api/v1/filmes/")
-def movies():
-    """
-    View para consultar os filmes. Retorna um dict com todos os filmes.
-    """
-    return {"Status": "Work in Progress"}
+    episodes_res = await db_chaves.episodes.find().to_list(1000)
+    return episodes_res
 
 
 @app.get("/api/v1/frases/")
-def quotes():
+async def get_quotes():
     """
-    View para consultar os frases. Retorna um dict com todos os frases.
+    View para consultar os frases. Retorna um dict com todas as frases.
     """
     return {"Status": "Work in Progress"}
 
 
 @app.get("/api/v1/personagens/")
-def character():
+async def get_characters():
     """
     View para consultar os personagens.
     Retorna um dict com todos os personagens.
@@ -86,16 +77,8 @@ def character():
 
 
 @app.get("/api/v1/programas/")
-def shows():
+async def get_shows():
     """
     View para consultar os programas. Retorna um dict com todos os programas.
-    """
-    return {"Status": "Work in Progress"}
-
-
-@app.get("/api/v1/temporadas/")
-def seasons():
-    """
-    View para consultar as temporadas. Retorna um dict com todos as temporadas.
     """
     return {"Status": "Work in Progress"}
