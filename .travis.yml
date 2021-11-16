@@ -22,6 +22,6 @@ jobs:
       name: "PyTest Tests"
       before_script:
         - sleep 15
-        - python scripts/migrations.py
+        - bash ./scripts/setup_mongo.sh
       script:
         - pytest -vv
