@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# Vars
-COLLECTIONS_GENERALDB=('actors' 'actresses' 'shows' 'voice_actors' 'voice_actresses')
-COLLECTIONS_CHAVESDB=('characters' 'episodes' 'quotes')
-COLLECTIONS_CHAPOLINDB=('characters' 'episodes' 'quotes')
-COLLECTIONS_CHESPIRITO=('characters' 'episodes' 'quotes' 'sketches')
-
 echo "Create Collections to GeneralDB...\n"
 mongo generaldb --eval 'db.createCollection(actors);'
 mongo generaldb --eval 'db.createCollection(actresses);'
@@ -38,7 +32,7 @@ mongo generaldb --eval 'db.actors.insertOne({"_id": 1,"nome":"Roberto Mario Góm
 echo
 
 echo "Insert a actress...\n"
-mongo generaldb --eval 'db.actreses.insertOne({"_id": 1,"nome":"María Antonieta Gómez Rodriguéz","nome_artistico":"Maria Antonieta de las Nieves","data_nascimento":"22/12/1949","data_falecimento":null,"programas":["Chaves","Chapolin","Chespirito"],"personagens":["Bruxa Baratuxa","Chiquinha","Dona Neves","Marujinha"]})'
+mongo generaldb --eval 'db.actresses.insertOne({"_id": 1,"nome":"María Antonieta Gómez Rodriguéz","nome_artistico":"Maria Antonieta de las Nieves","data_nascimento":"22/12/1949","data_falecimento":null,"programas":["Chaves","Chapolin","Chespirito"],"personagens":["Bruxa Baratuxa","Chiquinha","Dona Neves","Marujinha"]})'
 echo
 
 echo "Insert a chaves episode...\n"
