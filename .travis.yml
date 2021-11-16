@@ -1,11 +1,12 @@
 sudo: enabled
-services: docker
 dist: bionic
 language: python
 os:
   - linux
 python:
   - "3.8"
+services:
+  - mongodb
 
 before_install:
   - sudo apt-get update
@@ -19,5 +20,8 @@ jobs:
   include:
     - stage: "API Tests"
       name: "PyTest Tests"
+      before_script:
+        - sleep 15
+        - python scripts/migrations.py
       script:
         - pytest -vv

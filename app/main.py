@@ -4,7 +4,9 @@ from .models import Actor, Episode
 from typing import List
 
 import motor.motor_asyncio
+
 from decouple import config
+
 
 # Setup DBs
 MONGO_URI = config('DB_URI', default='localhost', cast=str)
