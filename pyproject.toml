@@ -5,23 +5,46 @@ description = "Uma API pública que foi feita sem querer querendo."
 authors = ["Pery Lemke <pery.lemke@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
-fastapi = "^0.70.0"
-uvicorn = "^0.15.0"
-pydantic = "^1.8.2"
-requests = "^2.26.0"
-motor = "2.2.0"
-pymongo = "^3.12.1"
-dnspython = "^2.1.0"
-python-decouple = "^3.5"
-pytest-asyncio = "^0.16.0"
-httpx = "^0.20.0"
-trio = "^0.19.0"
-autopep8 = "^1.6.0"
+python = "3.12.*"
+fastapi = {extras = ["standard"], version = "^0.112.2"}
 
-[tool.poetry.dev-dependencies]
-pytest = "^5.2"
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.2"
+pytest-cov = "^5.0.0"
+taskipy = "^1.13.0"
+ruff = "^0.6.2"
+httpx = "^0.27.2"
+
+
+# Ruff configuration
+[tool.ruff]
+line-length = 79
+extend-exclude = ["migrations"]
+
+[tool.ruff.lint]
+preview = true
+select = ['I', 'F', 'E', 'W', 'PL', 'PT']
+
+[tool.ruff.format]
+preview = true
+quote-style = 'single'
+
+
+# PyTest configuration
+[tool.pytest.ini_options]
+pythonpath = "."
+addopts = '-p no:warnings'
+
+
+# Taskipy configuration
+[tool.taskipy.tasks]
+lint = 'ruff check . && ruff check . --diff'
+format = 'ruff check . --fix && ruff format .'
+run = 'fastapi dev app/api.py'
+pre_test = 'task lint'
+test = 'pytest -s -x --cov=app -vv'
+post_test = 'coverage html'
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
